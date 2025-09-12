@@ -11,6 +11,8 @@ public class Quiz : MonoBehaviour {
     [SerializeField] List<QuestionSO> questions = new List<QuestionSO> ();
     QuestionSO currentQuestion;
     [SerializeField] TextMeshProUGUI questionText;
+    [SerializeField] Button hintButton;
+    [SerializeField] GameObject buttonGroup;
 
     [Header("Answers")]
     [SerializeField] GameObject[] answerButtons;
@@ -130,4 +132,24 @@ public class Quiz : MonoBehaviour {
             buttonSprite.sprite = correctAnswerSprite;
         }
     }
+     int RandomNotCorrectAnswerIndex() { //Button IndexFinder
+        int choice = UnityEngine.Random.Range(0, answerButtons.Length);
+        while (choice == currentQuestion.GetCorrectAnswerIndex()) {
+        choice = UnityEngine.Random.Range(0, answerButtons.Length);
+        }
+        return choice;
+        //Transform.childcount
+    }
+    public void OnHintButtonPressed() {
+        Button button = answerButtons[RandomNotCorrectAnswerIndex()].GetComponent<Button>(); //Chosen button to destroy
+        Debug.Log(RandomNotCorrectAnswerIndex());
+        
+
+    }
+
+
+
+
+
 }
+
