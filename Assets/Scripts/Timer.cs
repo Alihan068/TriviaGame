@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour {
         timerValue -= Time.deltaTime;
         if (isAnsweringQuestion) {
             if (timerValue > 0) {
-                fillFraction = timerValue / timeToShowCorrectAnswer;
+                fillFraction = timerValue / timeToCompleteQuestion;
             }
             else {
                 timerValue = timeToShowCorrectAnswer;

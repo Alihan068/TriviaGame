@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using TMPro;
 using UnityEngine;
@@ -7,7 +8,8 @@ using UnityEngine.UI;
 public class Quiz : MonoBehaviour {
 
     [Header("Question")]
-    [SerializeField] QuestionSO questionSO;
+    [SerializeField] List<QuestionSO> questions = new List<QuestionSO> ();
+    QuestionSO currentQuestion;
     [SerializeField] TextMeshProUGUI questionText;
 
     [Header("Answers")]
@@ -26,7 +28,6 @@ public class Quiz : MonoBehaviour {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
         timer = FindFirstObjectByType<Timer>();
-        GetNextQuestion();
     }
 
     // Update is called once per frame
@@ -54,18 +55,21 @@ public class Quiz : MonoBehaviour {
     }
 
     void DisplayQuestion() {
-        questionText.text = questionSO.GetQuestion();
+        questionText.text = currentQuestion.GetQuestion();
 
         for (int i = 0; i < answerButtons.Length; i++) {
             TextMeshProUGUI buttonText = answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = questionSO.GetAnswer(i);
+            buttonText.text = currentQuestion.GetAnswer(i);
         }
     }
 
     void GetNextQuestion() {
-        SetButtonState(true);
-        SetDefaultButtonSprites();
-        DisplayQuestion();
+        if (questions.Count > 0) {
+            SetButtonState(true);
+            SetDefaultButtonSprites();
+            GetRandomQuestion();
+            DisplayQuestion();
+        }
     }
     void SetButtonState(bool state) {
         for (int i = 0; i < answerButtons.Length; i++) {
@@ -80,17 +84,27 @@ public class Quiz : MonoBehaviour {
             buttonImage.sprite = defaultAnswerSprite;
         }
     }
+
+    void GetRandomQuestion() {
+        int index = UnityEngine.Random.Range(0, questions.Count);
+
+        currentQuestion = questions[index];
+
+        if (questions.Contains(currentQuestion)) {
+        questions.Remove(currentQuestion);
+        }
+    }
     void DisplayAnswer(int index) {
         Image buttonSprite;
 
-        if (index == questionSO.GetCorrectAnswerIndex()) {
+        if (index == currentQuestion.GetCorrectAnswerIndex()) {
             questionText.text = "Correct!";
             buttonSprite = answerButtons[index].GetComponent<Image>();
             buttonSprite.sprite = correctAnswerSprite;
         }
         else {
-            correctAnswerIndex = questionSO.GetCorrectAnswerIndex();
-            string correctAnswer = questionSO.GetAnswer(correctAnswerIndex);
+            correctAnswerIndex = currentQuestion.GetCorrectAnswerIndex();
+            string correctAnswer = currentQuestion.GetAnswer(correctAnswerIndex);
             questionText.text = "Wrong! The correct answer is: \n" + correctAnswer;
             buttonSprite = answerButtons[correctAnswerIndex].GetComponent<Image>();
             buttonSprite.sprite = correctAnswerSprite;

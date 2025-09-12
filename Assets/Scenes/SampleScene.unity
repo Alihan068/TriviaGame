@@ -236,13 +236,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7d7a97c415e9d4b9ee41d90c3c5f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionSO: {fileID: 11400000, guid: d3b595ddb298dd24da0279f36c23ac93, type: 2}
+  questions:
+  - {fileID: 11400000, guid: d3b595ddb298dd24da0279f36c23ac93, type: 2}
+  - {fileID: 11400000, guid: 0ee78fc34f1154d4e8df52426d1634a3, type: 2}
+  - {fileID: 11400000, guid: 94f97b8c5019283439b83d618f1011d2, type: 2}
+  - {fileID: 11400000, guid: b0516513f70368d45854e94f04a214de, type: 2}
   questionText: {fileID: 352842144}
   answerButtons:
   - {fileID: 826051492}
   - {fileID: 182383525}
   - {fileID: 886217131}
   - {fileID: 951235761}
+  hasAnsweredEarly: 0
   defaultAnswerSprite: {fileID: 21300000, guid: 55cc58ea54389604aa54c145d8ec4272, type: 3}
   correctAnswerSprite: {fileID: 21300000, guid: b33c793639d1911428ee7006f27436b1, type: 3}
   timerImage: {fileID: 1726640729}
@@ -1345,7 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToCompleteQuestion: 30
-  timeToShowCorrectAnswer: 7
+  timeToShowCorrectAnswer: 2
   isAnsweringQuestion: 0
   fillFraction: 0
   loadNextQuestion: 0
