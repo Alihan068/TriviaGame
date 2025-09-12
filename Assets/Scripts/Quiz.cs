@@ -15,7 +15,7 @@ public class Quiz : MonoBehaviour {
     [Header("Answers")]
     [SerializeField] GameObject[] answerButtons;
     int correctAnswerIndex;
-    public bool hasAnsweredEarly;
+    [HideInInspector] public bool hasAnsweredEarly = true;
 
     [Header("ButtonColors")]
     [SerializeField] Sprite defaultAnswerSprite;
@@ -25,9 +25,22 @@ public class Quiz : MonoBehaviour {
     [SerializeField] Image timerImage;
     Timer timer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
+    [Header("Score")]
+    [SerializeField] TextMeshProUGUI scoreText;
+    ScoreKeeper scoreKeeper;
+
+    [Header("ProgressBar")]
+    [SerializeField] Slider progressBar;
+
+    [HideInInspector] public bool isComplete;
+
+    void Awake() {
         timer = FindFirstObjectByType<Timer>();
+        scoreKeeper = FindFirstObjectByType<ScoreKeeper>();
+        scoreText.text = "Score 0%";
+
+        progressBar.maxValue = questions.Count;
+        progressBar.value = 0;
     }
 
     // Update is called once per frame
@@ -35,12 +48,15 @@ public class Quiz : MonoBehaviour {
         timerImage.fillAmount = timer.fillFraction;
 
         if (timer.loadNextQuestion) {
+            if (progressBar.value == progressBar.maxValue) {
+                isComplete = true;
+            }
             hasAnsweredEarly = false;
             GetNextQuestion();
             timer.loadNextQuestion = false;
         }
         else if (!hasAnsweredEarly && !timer.isAnsweringQuestion) {
-            DisplayAnswer(-1);
+            DisplayAnswer(questions.Count + 1);
             SetButtonState(false);
         }
     }
@@ -52,6 +68,7 @@ public class Quiz : MonoBehaviour {
 
         SetButtonState(false);
         timer.CancelTimer();
+        scoreText.text = "Score " + scoreKeeper.CalculateScore() + "%";
     }
 
     void DisplayQuestion() {
@@ -69,6 +86,8 @@ public class Quiz : MonoBehaviour {
             SetDefaultButtonSprites();
             GetRandomQuestion();
             DisplayQuestion();
+            scoreKeeper.IncrementQuestionsSeen();
+            progressBar.value++;
         }
     }
     void SetButtonState(bool state) {
@@ -101,6 +120,7 @@ public class Quiz : MonoBehaviour {
             questionText.text = "Correct!";
             buttonSprite = answerButtons[index].GetComponent<Image>();
             buttonSprite.sprite = correctAnswerSprite;
+            scoreKeeper.IncrementCorrectAnswers();
         }
         else {
             correctAnswerIndex = currentQuestion.GetCorrectAnswerIndex();
