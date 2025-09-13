@@ -42,8 +42,10 @@ public class HintButton : MonoBehaviour {
         alreadyChoiced.Add(quiz.currentQuestion.GetCorrectAnswerIndex());
         Debug.Log("Correct Index = " + quiz.currentQuestion.GetCorrectAnswerIndex());
         perQuestionHintAmount = quiz.answerButtons.Length - 2;
-        hintButton.SetActive(true);
         hintButtonText.text = "Hint = " + perQuestionHintAmount.ToString();
+        if (totalHintAmount > 0) {
+            EnableHintButton();
+        }
     }
 
     int RandomNotCorrectAnswerIndex(int choice) { //Give a random buttonsIndex from one of the wrong answers.       
