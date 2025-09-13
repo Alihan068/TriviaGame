@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Timer
+  - buttonGroup
   layers:
   - Default
   - TransparentFX

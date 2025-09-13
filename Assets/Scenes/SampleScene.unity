@@ -251,6 +251,11 @@ MonoBehaviour:
   - {fileID: 886217131}
   - {fileID: 951235761}
   hasAnsweredEarly: 0
+  hintButton: {fileID: 1520603330}
+  perQuestionHintAmount: 20
+  totalHintAmount: 50
+  answerButton: []
+  alreadyChoiced: 
   defaultAnswerSprite: {fileID: 21300000, guid: 55cc58ea54389604aa54c145d8ec4272, type: 3}
   correctAnswerSprite: {fileID: 21300000, guid: b33c793639d1911428ee7006f27436b1, type: 3}
   timerImage: {fileID: 1726640729}
@@ -1425,7 +1430,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_TargetDisplay: 0
 --- !u!224 &880869741
 RectTransform:
@@ -1602,6 +1607,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9099206483156993267, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 9099206483156993267, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 9099206483156993267, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.94
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1699,9 +1716,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 134799677}
     m_Modifications:
+    - target: {fileID: 354309529101763477, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3545023577660916759, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
       propertyPath: m_Name
       value: HintButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545023577660916759, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 134799678}
+    - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnHintButtonPressed
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Quiz, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5748666569133616734, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
       propertyPath: m_text
@@ -1851,6 +1908,11 @@ PrefabInstance:
 --- !u!224 &1272523888 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5782154530961189245, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+  m_PrefabInstance: {fileID: 1272523887}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1520603330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3545023577660916759, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
   m_PrefabInstance: {fileID: 1272523887}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1550195672
@@ -2256,6 +2318,10 @@ PrefabInstance:
     - target: {fileID: 3545023577660916759, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
       propertyPath: m_Name
       value: Button_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545023577660916759, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
       propertyPath: m_Colors.m_DisabledColor.a
