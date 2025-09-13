@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,11 +19,11 @@ public class Quiz : MonoBehaviour {
     int correctAnswerIndex;
     [HideInInspector] public bool hasAnsweredEarly = true;
 
-    [Header("Hint")]
+    [Header("HintButton")]
     [SerializeField] GameObject hintButton;
+    [SerializeField] TextMeshProUGUI hintButtonText;
     [SerializeField] int perQuestionHintAmount = 2;
     [SerializeField] int totalHintAmount = 5;
-    [SerializeField] List<Button> answerButton;
     [HideInInspector] public List<int> alreadyChoiced;
 
     [Header("ButtonColors")]
@@ -94,7 +95,7 @@ public class Quiz : MonoBehaviour {
             SetDefaultButtonSprites();
             GetRandomQuestion();
             DisplayQuestion();
-            ClearHintList();
+            ResetHintFeatures();
             scoreKeeper.IncrementQuestionsSeen();
             progressBar.value++;          
         }
@@ -124,7 +125,6 @@ public class Quiz : MonoBehaviour {
     }
     void DisplayAnswer(int index) {
         Image buttonSprite;
-
         if (index == currentQuestion.GetCorrectAnswerIndex()) {
             questionText.text = "Correct!";
             buttonSprite = answerButtons[index].GetComponent<Image>();
@@ -144,36 +144,37 @@ public class Quiz : MonoBehaviour {
             DestroyRandomAnswer();
             perQuestionHintAmount -= 1;
             totalHintAmount -= 1;
+            hintButtonText.text = "Hint = " + perQuestionHintAmount.ToString();
             if (perQuestionHintAmount == 0) {
                 hintButton.SetActive(false);
             }
         }
         else {
             Debug.Log("No Remaining Hints");
+            hintButton.SetActive(false);
         }
 
     }
     void DestroyRandomAnswer() {
         int choice = UnityEngine.Random.Range(0, answerButtons.Length);
         TextMeshProUGUI selectedButton = answerButtons[RandomNotCorrectAnswerIndex(choice)].GetComponentInChildren<TextMeshProUGUI>();
-        Destroy(selectedButton);
+        selectedButton.text = "Nope";
     }
 
     int RandomNotCorrectAnswerIndex(int choice) { //Give a random buttonsIndex from one of the wrong answers.       
-        Debug.Log("alreadyChoiced has " + alreadyChoiced.Count + " Members ");
         while (alreadyChoiced.Contains(choice)) {
             choice = UnityEngine.Random.Range(0, answerButtons.Length);
-            Debug.Log("Choice is = " + choice);
         }
         alreadyChoiced.Add(choice);
-        Debug.Log("Choice = " + choice + " added to the list");
-        Debug.Log("alreadyChoiced now have " + alreadyChoiced.Count + " Members ");
         return choice;
         //Transform.childcount
     }
-    void ClearHintList() {
+    void ResetHintFeatures() {
         alreadyChoiced.Clear();
         alreadyChoiced.Add(currentQuestion.GetCorrectAnswerIndex());
+        perQuestionHintAmount = answerButtons.Length - 2;
+        hintButton.SetActive(true);
+        hintButtonText.text = "Hint = " + perQuestionHintAmount.ToString();
     }
 }
 

@@ -252,9 +252,9 @@ MonoBehaviour:
   - {fileID: 951235761}
   hasAnsweredEarly: 0
   hintButton: {fileID: 1520603330}
+  hintButtonText: {fileID: 491795964}
   perQuestionHintAmount: 20
   totalHintAmount: 50
-  answerButton: []
   alreadyChoiced: 
   defaultAnswerSprite: {fileID: 21300000, guid: 55cc58ea54389604aa54c145d8ec4272, type: 3}
   correctAnswerSprite: {fileID: 21300000, guid: b33c793639d1911428ee7006f27436b1, type: 3}
@@ -988,6 +988,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473520449}
   m_CullTransparentMesh: 1
+--- !u!114 &491795964 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5748666569133616734, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+  m_PrefabInstance: {fileID: 1272523887}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
