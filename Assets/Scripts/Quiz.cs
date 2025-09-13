@@ -11,21 +11,17 @@ public class Quiz : MonoBehaviour {
 
     [Header("Question")]
     [SerializeField] List<QuestionSO> questions = new List<QuestionSO>();
-    QuestionSO currentQuestion;
+    [HideInInspector] public QuestionSO currentQuestion;
     [SerializeField] TextMeshProUGUI questionText;
 
     [Header("Answers")]
-    [SerializeField] GameObject[] answerButtons;
+    [HideInInspector] public GameObject[] answerButtons;
     int correctAnswerIndex;
     [HideInInspector] public bool hasAnsweredEarly = true;
-
+    
     [Header("HintButton")]
-    [SerializeField] GameObject hintButton;
-    [SerializeField] TextMeshProUGUI hintButtonText;
-    [SerializeField] int perQuestionHintAmount = 2;
-    [SerializeField] int totalHintAmount = 5;
-    [HideInInspector] public List<int> alreadyChoiced;
-
+    [SerializeField] HintButton hintButton;
+    
     [Header("ButtonColors")]
     [SerializeField] Sprite defaultAnswerSprite;
     [SerializeField] Sprite correctAnswerSprite;
@@ -52,7 +48,6 @@ public class Quiz : MonoBehaviour {
         progressBar.value = 0;
     }
 
-    // Update is called once per frame
     void Update() {
         timerImage.fillAmount = timer.fillFraction;
 
@@ -95,7 +90,7 @@ public class Quiz : MonoBehaviour {
             SetDefaultButtonSprites();
             GetRandomQuestion();
             DisplayQuestion();
-            ResetHintFeatures();
+            hintButton.ResetHintFeatures();
             scoreKeeper.IncrementQuestionsSeen();
             progressBar.value++;          
         }
@@ -138,43 +133,8 @@ public class Quiz : MonoBehaviour {
             buttonSprite = answerButtons[correctAnswerIndex].GetComponent<Image>();
             buttonSprite.sprite = correctAnswerSprite;
         }
+        hintButton.DisableHintButton();
     }
-    public void OnHintButtonPressed() {
-        if ((perQuestionHintAmount > 0) && (alreadyChoiced.Count < answerButtons.Length)){
-            DestroyRandomAnswer();
-            perQuestionHintAmount -= 1;
-            totalHintAmount -= 1;
-            hintButtonText.text = "Hint = " + perQuestionHintAmount.ToString();
-            if (perQuestionHintAmount == 0) {
-                hintButton.SetActive(false);
-            }
-        }
-        else {
-            Debug.Log("No Remaining Hints");
-            hintButton.SetActive(false);
-        }
-
-    }
-    void DestroyRandomAnswer() {
-        int choice = UnityEngine.Random.Range(0, answerButtons.Length);
-        TextMeshProUGUI selectedButton = answerButtons[RandomNotCorrectAnswerIndex(choice)].GetComponentInChildren<TextMeshProUGUI>();
-        selectedButton.text = "Nope";
-    }
-
-    int RandomNotCorrectAnswerIndex(int choice) { //Give a random buttonsIndex from one of the wrong answers.       
-        while (alreadyChoiced.Contains(choice)) {
-            choice = UnityEngine.Random.Range(0, answerButtons.Length);
-        }
-        alreadyChoiced.Add(choice);
-        return choice;
-        //Transform.childcount
-    }
-    void ResetHintFeatures() {
-        alreadyChoiced.Clear();
-        alreadyChoiced.Add(currentQuestion.GetCorrectAnswerIndex());
-        perQuestionHintAmount = answerButtons.Length - 2;
-        hintButton.SetActive(true);
-        hintButtonText.text = "Hint = " + perQuestionHintAmount.ToString();
-    }
+ 
 }
 

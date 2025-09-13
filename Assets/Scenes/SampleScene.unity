@@ -244,6 +244,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0ee78fc34f1154d4e8df52426d1634a3, type: 2}
   - {fileID: 11400000, guid: 94f97b8c5019283439b83d618f1011d2, type: 2}
   - {fileID: 11400000, guid: b0516513f70368d45854e94f04a214de, type: 2}
+  currentQuestion: {fileID: 0}
   questionText: {fileID: 352842144}
   answerButtons:
   - {fileID: 826051492}
@@ -251,11 +252,7 @@ MonoBehaviour:
   - {fileID: 886217131}
   - {fileID: 951235761}
   hasAnsweredEarly: 0
-  hintButton: {fileID: 1520603330}
-  hintButtonText: {fileID: 491795964}
-  perQuestionHintAmount: 20
-  totalHintAmount: 50
-  alreadyChoiced: 
+  hintButton: {fileID: 1520603334}
   defaultAnswerSprite: {fileID: 21300000, guid: 55cc58ea54389604aa54c145d8ec4272, type: 3}
   correctAnswerSprite: {fileID: 21300000, guid: b33c793639d1911428ee7006f27436b1, type: 3}
   timerImage: {fileID: 1726640729}
@@ -1754,7 +1751,7 @@ PrefabInstance:
     - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 134799678}
+      objectReference: {fileID: 1520603334}
     - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1765,7 +1762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Quiz, Assembly-CSharp
+      value: HintButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4309568321359785033, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1773,7 +1770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5748666569133616734, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
       propertyPath: m_text
-      value: Hint
+      value: Hint = 2
       objectReference: {fileID: 0}
     - target: {fileID: 5748666569133616734, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
       propertyPath: m_fontSize
@@ -1914,7 +1911,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3545023577660916759, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1520603334}
   m_SourcePrefab: {fileID: 100100000, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
 --- !u!224 &1272523888 stripped
 RectTransform:
@@ -1926,6 +1926,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3545023577660916759, guid: 2c70d762375fa4c47b758d724490abee, type: 3}
   m_PrefabInstance: {fileID: 1272523887}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1520603334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520603330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40098398541f7d4587ddad66b9ab53c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quiz: {fileID: 134799678}
+  hintButton: {fileID: 1520603330}
+  hintButtonText: {fileID: 491795964}
+  perQuestionHintAmount: 2
+  totalHintAmount: 5
+  alreadyChoiced: 
 --- !u!1 &1550195672
 GameObject:
   m_ObjectHideFlags: 0
