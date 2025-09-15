@@ -19,8 +19,7 @@ public class Quiz : MonoBehaviour {
     int correctAnswerIndex;
     [HideInInspector] public bool hasAnsweredEarly = true;
     
-    [Header("HintButton")]
-    [SerializeField] HintButton hintButton;
+    
     
     [Header("ButtonColors")]
     [SerializeField] Sprite defaultAnswerSprite;
@@ -39,7 +38,10 @@ public class Quiz : MonoBehaviour {
 
     [HideInInspector] public bool isComplete;
 
+    HintButton hintButton;
+
     void Awake() {
+        hintButton = FindFirstObjectByType<HintButton>();
         timer = FindFirstObjectByType<Timer>();
         scoreKeeper = FindFirstObjectByType<ScoreKeeper>();
         scoreText.text = "Score 0%";
@@ -79,6 +81,9 @@ public class Quiz : MonoBehaviour {
         questionText.text = currentQuestion.GetQuestion();
 
         for (int i = 0; i < answerButtons.Length; i++) {
+            GameObject selectedButton = answerButtons[i];
+            selectedButton.SetActive(true);
+
             TextMeshProUGUI buttonText = answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = currentQuestion.GetAnswer(i);
         }

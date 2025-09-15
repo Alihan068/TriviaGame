@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class HintButton : MonoBehaviour {
+public class HintButton : MonoBehaviour
+{
     [SerializeField] Quiz quiz;
 
     [Header("HintButton")]
@@ -13,43 +14,53 @@ public class HintButton : MonoBehaviour {
     [SerializeField] int totalHintAmount = 5;
     [HideInInspector] public List<int> alreadyChoiced;
 
-    public void EnableHintButton() {
+    public void EnableHintButton()
+    {
         hintButton.SetActive(true);
     }
-    public void DisableHintButton() {
+    public void DisableHintButton()
+    {
         hintButton.SetActive(false);
     }
 
-    public void OnHintButtonPressed() {
-        if ((perQuestionHintAmount > 0) && (alreadyChoiced.Count < quiz.answerButtons.Length)) {
+    public void OnHintButtonPressed()
+    {
+        if ((perQuestionHintAmount > 0) && (alreadyChoiced.Count < quiz.answerButtons.Length))
+        {
             DestroyRandomAnswer();
             perQuestionHintAmount -= 1;
             totalHintAmount -= 1;
             hintButtonText.text = "Hint = " + perQuestionHintAmount.ToString();
-            if (perQuestionHintAmount == 0) {
+            if (perQuestionHintAmount == 0)
+            {
                 DisableHintButton();
             }
         }
-        else {
+        else
+        {
             Debug.Log("No Remaining Hints");
             DisableHintButton();
         }
 
     }
 
-    public void ResetHintFeatures() {
+    public void ResetHintFeatures()
+    {
         alreadyChoiced.Clear();
         alreadyChoiced.Add(quiz.currentQuestion.GetCorrectAnswerIndex());
         Debug.Log("Correct Index = " + quiz.currentQuestion.GetCorrectAnswerIndex());
         perQuestionHintAmount = quiz.answerButtons.Length - 2;
         hintButtonText.text = "Hint = " + perQuestionHintAmount.ToString();
-        if (totalHintAmount > 0) {
+        if (totalHintAmount > 0)
+        {
             EnableHintButton();
         }
     }
 
-    int RandomNotCorrectAnswerIndex(int choice) { //Give a random buttonsIndex from one of the wrong answers.       
-        while (alreadyChoiced.Contains(choice)) {
+    public int RandomNotCorrectAnswerIndex(int choice)
+    { //Give a random buttonsIndex from one of the wrong answers.       
+        while (alreadyChoiced.Contains(choice))
+        {
             choice = UnityEngine.Random.Range(0, quiz.answerButtons.Length);
         }
         alreadyChoiced.Add(choice);
@@ -57,10 +68,11 @@ public class HintButton : MonoBehaviour {
         //Transform.childcount
     }
 
-    void DestroyRandomAnswer() {
+    void DestroyRandomAnswer()
+    {
         int choice = UnityEngine.Random.Range(0, quiz.answerButtons.Length);
-        TextMeshProUGUI selectedButton = quiz.answerButtons[RandomNotCorrectAnswerIndex(choice)].GetComponentInChildren<TextMeshProUGUI>();
-        selectedButton.text = "";
+        GameObject selectedButton = quiz.answerButtons[RandomNotCorrectAnswerIndex(choice)];
+        selectedButton.SetActive(false);
     }
 
 
